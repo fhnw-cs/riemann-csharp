@@ -68,7 +68,14 @@ namespace Riemann {
 
 		private static string GetFqdn() {
 			var properties = IPGlobalProperties.GetIPGlobalProperties();
-			return string.Format("{0}.{1}", properties.HostName, properties.DomainName);
+            if (String.Empty.Equals(properties.DomainName))
+            {
+                return properties.HostName;
+            }
+            else
+            {
+                return string.Format("{0}.{1}", properties.HostName, properties.DomainName);
+            }
 		}
 
 		///
